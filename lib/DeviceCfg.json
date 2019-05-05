@@ -1,0 +1,25 @@
+{
+	"Devices":	[{
+			"ID":	0,
+			"SerialNumber":	"DS-K5603F-D20171115V010000CH815654478",
+			"ChannelNumber":	0,
+			"StartChannel":	0,
+			"AlarmInNum":	2,
+			"AlarmOutNum":	1,
+			"IPChanNum":	0,
+			"MirrorChanNum":	0,
+			"StartMirrorChanNo":	0,
+			"LocalNodeName":	"192.168.1.88",
+			"DeviceType":	874,
+			"DiskNum":	0,
+			"LoginUserName":	"admin",
+			"LoginUserPwd":	"hik12345",
+			"DeviceIP":	"192.168.1.88",
+			"DeviceMultiIP":	"0.0.0.0",
+			"DevicePort":	8000,
+			"DeviceName":	"",
+			"LoginMode":	0,
+			"Https":	0,
+			"Channels":	[]
+		}]
+}

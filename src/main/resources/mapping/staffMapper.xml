@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "config/mybatis-3-mapper.dtd">
+<mapper namespace="mapping.staffMapper">
+    <!--卡号查询单个人员-->
+    <select id="getSingleStaff" parameterType="com.dyw.queue.entity.AlarmEntity"
+            resultType="com.dyw.queue.entity.StaffEntity" flushCache="true">
+        select * from Staff where CardNumber=#{CardNumber}
+    </select>
+    <!--获取全部人员信息（卡号不为0）-->
+    <select id="getAllStaff" resultType="com.dyw.queue.entity.StaffEntity" flushCache="true">
+        select * from Staff where CardNumber!='0';
+    </select>
+    <!--按卡号查询多个人员信息-->
+    <select id="getStaffByCard" resultType="com.dyw.queue.entity.StaffEntity" flushCache="true">
+        select * from Staff where CardNumber in
+        <foreach collection="list" index="index" item="CardNumber" open="(" separator="," close=")">
+            #{CardNumber}
+        </foreach>
+    </select>
+    <!--获取全部人员卡号信息（卡号不为0）-->
+    <select id="getAllStaffCard" resultType="String" flushCache="true">
+        select CardNumber from Staff where CardNumber!='0';
+    </select>
+    <!--更新人员表信息,通过临时人员信息-->
+    <update id="updateStaff" parameterType="com.dyw.queue.entity.TemporaryStaffEntity">
+        UPDATE TemporaryStaff SET
+        Name=#{Name},
+        NameEn=#{NameEn},
+        CardId=#{CardId},
+        CardNumber=#{CardNumber},
+        Birthday=#{Birthday},
+        Sex=#{Sex},
+        Company=#{Company}
+        WHERE CardNumber = #{CardNumber}
+    </update>
+    <!--删除人员信息:将人员卡号在数据库中设为0-->
+    <update id="deleteStaff" parameterType="com.dyw.queue.entity.TemporaryStaffEntity">
+        <!--DELETE FROM Staff WHERE CardNumber=#{CardNumber};-->
+        UPDATE Staff SET CardNumber='0' WHERE CardNumber=#{CardNumber};
+    </update>
+</mapper>

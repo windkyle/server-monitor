@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "config/mybatis-3-mapper.dtd">
+<mapper namespace="mapping.equipmentMapper">
+    <!--查询单个设备-->
+    <select id="getOneEquipment" parameterType="String" resultType="com.dyw.queue.entity.EquipmentEntity">
+        select CardNumber,Name,Photo from Staff where CardNumber=#{CardNumber}
+    </select>
+    <!--查询所有设备-->
+    <select id="getAllEquipment" resultType="com.dyw.queue.entity.EquipmentEntity">
+        select Name,GroupId,IP from Equipment
+    </select>
+</mapper>

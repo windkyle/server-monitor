@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "config/mybatis-3-mapper.dtd">
+<mapper namespace="mapping.alarmMapper">
+    <!-- 插入一个报警 -->
+    <insert id="insertAlarm" parameterType="com.dyw.queue.entity.AlarmEntity" useGeneratedKeys="true" keyProperty="Id">
+        INSERT INTO
+        PassRecord
+        (CapturePhoto,CardNumber,StaffName,EquipmentName,Date,Similarity,IsPass,EventTypeId,IP)values(#{CapturePhoto},#{CardNumber},#{StaffName},#{EquipmentName},#{Date},#{Similarity},#{IsPass},#{EventTypeId},#{IP});
+    </insert>
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "config/mybatis-3-mapper.dtd">
+<mapper namespace="mapping.temporaryStaffMapper">
+    <!--插入临时人员-->
+    <insert id="insertTemporaryStaff" parameterType="com.dyw.queue.entity.TemporaryStaffEntity">
+        INSERT INTO TemporaryStaff
+        (CardId,CardNumber,UserId,Name,NameEn,Company,Sex,Birthday)
+        VALUES
+        (#{CardId},#{CardNumber},#{UserId},#{Name},#{NameEn},#{Company},#{Sex},#{Birthday})
+    </insert>
+    <!--更新临时人员-->
+    <update id="updateTemporaryStaff" parameterType="com.dyw.queue.entity.TemporaryStaffEntity">
+        UPDATE TemporaryStaff SET
+        Name=#{Name},
+        NameEn=#{NameEn},
+        CardId=#{CardId},
+        CardNumber=#{CardNumber},
+        Birthday=#{Birthday},
+        Sex=#{Sex},
+        Company=#{Company}
+        WHERE CardNumber = #{CardNumber}
+    </update>
+    <!--查询临时人员-->
+    <select id="getTemporaryStaff" resultType="com.dyw.queue.entity.TemporaryStaffEntity" flushCache="true">
+        select * from TemporaryStaff where CardNumber=#{_parameter}
+    </select>
+    <!--卡号删除单个人员-->
+    <delete id="deleteSingleStaff" parameterType="com.dyw.queue.entity.TemporaryStaffEntity">
+        DELETE FROM TemporaryStaff WHERE CardNumber = #{CardNumber}
+    </delete>
+</mapper>

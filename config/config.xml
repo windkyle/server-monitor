@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    //一体机配置
+    <devicePort>8000</devicePort>
+    <deviceName>admin</deviceName>
+    <devicePass>hik12345</devicePass>
+    //数据库配置
+    <dataBaseIp>localhost</dataBaseIp>
+    <dataBasePort>1433</dataBasePort>
+    <dataBaseName>dyw</dataBaseName>
+    <dataBasePass>hik12345</dataBasePass>
+    <dataBaseLib>EntranceGuard</dataBaseLib>
+    <dataBaseTime>30000</dataBaseTime>//防止同步时同时操作数据库，造成堵塞
+    //队列配置
+    <queueIp>localhost</queueIp>
+    //socket端口配置
+    <socketPort>12360</socketPort>
+    <socketRegisterPort>12350</socketRegisterPort>
+    <socketMonitorPort>12360</socketMonitorPort>
+    //测试配置单台同步
+    <testIp>192.168.1.112</testIp>
+    //是否开启同步
+    <synchronization>1</synchronization>0：不开启，1：开启单台，2：代表全部开启
+    <synchronizationHour>00</synchronizationHour>
+    <synchronizationMinute>29</synchronizationMinute>
+    <synchronizationSecond>00</synchronizationSecond>
+    <synchronizationTime>100000</synchronizationTime>//查找全部卡号时，线程暂停时间
+    //onGuard配置
+    <onGuardIp>127.0.0.1</onGuardIp>
+    <onGuardPort>9090</onGuardPort>
+    //每布防一台设备后暂停时间
+    <alarmTime>10000</alarmTime>
+    //服务端推送消息到客户端的延迟时间，防止客户端数据接收出错
+    <pushTime>800</pushTime>
+    //报警回调函数延迟时间，防止回调函数返回的数据量过大导致程序出错
+    <callBackTime>500</callBackTime>
+    //服务程序关闭时间1
+    <exitTimeStatus1>0</exitTimeStatus1>
+    <exitTimeHour1>0</exitTimeHour1>
+    <exitTimeMinute1>0</exitTimeMinute1>
+    <exitTimeSecond1>0</exitTimeSecond1>
+    //服务程序关闭时间2
+    <exitTimeStatus2>0</exitTimeStatus2>
+    <exitTimeHour2>0</exitTimeHour2>
+    <exitTimeMinute2>0</exitTimeMinute2>
+    <exitTimeSecond2>0</exitTimeSecond2>
+</config>
