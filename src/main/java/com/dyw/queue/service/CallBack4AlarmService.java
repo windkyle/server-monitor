@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 
 public class CallBack4AlarmService {
     private Logger logger = LoggerFactory.getLogger(CallBack4AlarmService.class);
-    private StaffEntity staffEntity = new StaffEntity();
+    private StaffEntity staffEntity;
     private int alarmType;
 
     //一体机设备相关参数
@@ -36,6 +36,7 @@ public class CallBack4AlarmService {
         strACSInfo.write();
         pACSInfo = strACSInfo.getPointer();
         alarmEntity = new AlarmEntity();
+        staffEntity = new StaffEntity();
     }
 
     public void alarmNotice(NativeLong lCommand,
@@ -77,7 +78,6 @@ public class CallBack4AlarmService {
         alarmEntity.setDate(Timestamp.valueOf(strACSInfo.struTime.dwYear + "-" + strACSInfo.struTime.dwMonth + "-" + strACSInfo.struTime.dwDay + " " + strACSInfo.struTime.dwHour + ":" + strACSInfo.struTime.dwMinute + ":" + strACSInfo.struTime.dwSecond));
         alarmEntity.setEquipmentName(Egci.deviceIps0Map.get(alarmEntity.getIP()));//设备名称
         //依据事件类型生成不同的事件对象
-        logger.info("事件类型：" + strACSInfo.dwMinor);
         switch (strACSInfo.dwMinor) {
             case 105:
                 alarmEntity.setPass(true);
@@ -101,15 +101,10 @@ public class CallBack4AlarmService {
             staffEntity = session.selectOne("mapping.staffMapper.getSingleStaff", alarmEntity);
             alarmEntity.setStaffName(staffEntity.getName());
         } catch (Exception e) {
-            logger.error("读取人员姓名出错", e);
             alarmEntity.setStaffName(null);
         }
         //提交数据
         try {
-
-            alarmEntity.setCardNumber("858585");/////////////////////
-
-
             session.insert("mapping.alarmMapper.insertAlarm", alarmEntity);
             session.commit();
         } catch (Exception e) {
