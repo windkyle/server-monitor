@@ -3,6 +3,7 @@ package com.dyw.queue.service;
 import com.dyw.queue.HCNetSDK;
 import com.dyw.queue.controller.Egci;
 import com.dyw.queue.entity.AlarmEntity;
+import com.dyw.queue.entity.FaultSummationEntity;
 import com.dyw.queue.entity.StaffEntity;
 import com.dyw.queue.tool.Tool;
 import com.sun.jna.NativeLong;
@@ -86,6 +87,7 @@ public class CallBack4AlarmService {
             case 112:
                 alarmEntity.setPass(false);
                 alarmEntity.setSimilarity(Tool.getRandom(40, 15, 25));
+                updateFaultSummation(alarmEntity, session);
                 break;
             case 8:
                 alarmEntity.setPass(false);
@@ -140,6 +142,21 @@ public class CallBack4AlarmService {
         //判断布防是否是在线断开后自动重连了
         if (Egci.deviceIpsAlarmFail.contains(alarmEntity.getIP())) {
             Egci.deviceIpsAlarmFail.remove(alarmEntity.getIP());
+        }
+    }
+
+    private void updateFaultSummation(AlarmEntity alarmEntity, SqlSession session) {
+        //查询人员是否已存在
+        FaultSummationEntity faultSummationEntity;
+        faultSummationEntity = session.selectOne("mapping.alarmMapper.getSingleFaultSummation", alarmEntity);
+        if (faultSummationEntity != null) {//更新
+            faultSummationEntity.setFaultAccount(faultSummationEntity.getFaultAccount() + 1);
+            faultSummationEntity.setLastTime(faultSummationEntity.getLastTime());
+            session.update("mapping.alarmMapper.updateFaultSummation", faultSummationEntity);
+            session.commit();
+        } else {//新增
+            session.insert("mapping.alarmMapper.insertFaultSummation", alarmEntity);
+            session.commit();
         }
     }
 }

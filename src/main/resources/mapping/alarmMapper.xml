@@ -7,6 +7,29 @@
     <insert id="insertAlarm" parameterType="com.dyw.queue.entity.AlarmEntity" useGeneratedKeys="true" keyProperty="Id">
         INSERT INTO
         PassRecord
-        (CapturePhoto,CardNumber,StaffName,EquipmentName,Date,Similarity,IsPass,EventTypeId,IP)values(#{CapturePhoto},#{CardNumber},#{StaffName},#{EquipmentName},#{Date},#{Similarity},#{IsPass},#{EventTypeId},#{IP});
+        (CapturePhoto,CardNumber,StaffName,EquipmentName,Date,Similarity,IsPass,EventTypeId,IP)
+        values
+        (#{CapturePhoto},#{CardNumber},#{StaffName},#{EquipmentName},#{Date},#{Similarity},#{IsPass},#{EventTypeId},#{IP});
     </insert>
+    <!--新增失败统计信息-->
+    <insert id="insertFaultSummation" parameterType="com.dyw.queue.entity.AlarmEntity">
+        INSERT INTO
+        FaultSummation
+        (cardNumber,faultAccount,lastTime)
+        values
+        (#{CardNumber},1,#{Date})
+    </insert>
+    <!--更新统计信息-->
+    <update id="updateFaultSummation" parameterType="com.dyw.queue.entity.FaultSummationEntity">
+        UPDATE FaultSummation SET
+        faultAccount=#{faultAccount},
+        lastTime=#{lastTime}
+        WHERE
+        cardNumber= #{cardNumber}
+    </update>
+    <!--查询单一失败统计信息-->
+    <select id="getSingleFaultSummation" parameterType="com.dyw.queue.entity.AlarmEntity"
+            resultType="com.dyw.queue.entity.FaultSummationEntity">
+        select * from FaultSummation where cardNumber= #{CardNumber}
+    </select>
 </mapper>
